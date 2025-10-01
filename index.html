@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>the ask harley if she's free portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Animated starfield background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://iso.500px.com/wp-content/uploads/2013/08/11834033-1170.jpeg') center/cover;
+            opacity: 0.4;
+            z-index: -1;
+            animation: twinkle 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2; }
+            100% { opacity: 0.4; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding-top: 100px;
+            padding-bottom: 40px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #b0b0b0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Countdown Timer */
+        .countdown-section {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .countdown-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #4ecdc4;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            min-width: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .countdown-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #ff6b6b;
+            display: block;
+        }
+
+        .countdown-label {
+            font-size: 14px;
+            color: #b0b0b0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Previous Dates Section */
+        .previous-dates {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .dates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .date-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .date-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            z-index: -1;
+        }
+
+        .date-card.commis::before {
+            background-image: url('https://cdn.broadsheet.com.au/cache/4a/a3/4aa38bb778ff0e9c504c155f07632beb.webp');
+        }
+
+        .date-card.sleepys::before {
+            background-image: url('https://cdn.broadsheet.com.au/cache/56/25/5625cc3362db4108605fb527556fdd70.webp');
+        }
+
+        .date-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .date-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #4ecdc4;
+        }
+
+        .date-time {
+            font-size: 14px;
+            color: #b0b0b0;
+            margin-bottom: 15px;
+        }
+
+        .date-summary {
+            font-size: 16px;
+            color: #ffffff;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        /* Feedback System */
+        .feedback-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .feedback-title {
+            font-size: 14px;
+            color: #4ecdc4;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .rating-system {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            justify-content: center;
+        }
+
+        .rating-face {
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            opacity: 0.5;
+        }
+
+        .rating-face:hover {
+            transform: scale(1.2);
+            opacity: 0.8;
+        }
+
+        .rating-face.selected {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .feedback-text {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 60px;
+            margin-bottom: 10px;
+        }
+
+        .feedback-text:focus {
+            outline: none;
+            border-color: #4ecdc4;
+            box-shadow: 0 0 0 2px rgba(78, 205, 196, 0.2);
+        }
+
+        .feedback-text::placeholder {
+            color: #b0b0b0;
+        }
+
+        .feedback-submit {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .feedback-submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
+        }
+
+        .feedback-submitted {
+            background: rgba(78, 205, 196, 0.2);
+            border: 1px solid #4ecdc4;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            color: #4ecdc4;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        /* Next Date Section */
+        .next-date {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, rgba(78, 205, 196, 0.1) 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 2px solid rgba(255, 107, 107, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .next-date-title {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #ff6b6b;
+            text-align: center;
+        }
+
+        .next-date-details {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .next-date-activity {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .next-date-time {
+            font-size: 18px;
+            color: #4ecdc4;
+            margin-bottom: 20px;
+        }
+
+        .next-date-description {
+            font-size: 16px;
+            color: #b0b0b0;
+            max-width: 600px;
+            margin: 0 auto 20px;
+            line-height: 1.6;
+        }
+
+        .exclusive-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin: 10px 5px;
+        }
+
+        /* RSVP Section */
+        .rsvp-section {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .rsvp-title {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #4ecdc4;
+        }
+
+        .rsvp-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .rsvp-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 150px;
+        }
+
+        .rsvp-accept {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            color: white;
+        }
+
+        .rsvp-accept:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(78, 205, 196, 0.3);
+        }
+
+        .rsvp-decline {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            color: white;
+        }
+
+        .rsvp-decline:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+        }
+
+        .rsvp-disabled {
+            background: linear-gradient(45deg, #666, #888);
+            color: #ccc;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .rsvp-disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Counter Proposal Form */
+        .counter-proposal {
+            display: none;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .counter-proposal.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-size: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #4ecdc4;
+            box-shadow: 0 0 0 2px rgba(78, 205, 196, 0.2);
+        }
+
+        .form-input::placeholder {
+            color: #b0b0b0;
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(78, 205, 196, 0.3);
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: rgba(78, 205, 196, 0.2);
+            border: 1px solid #4ecdc4;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+            color: #4ecdc4;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .countdown-timer {
+                gap: 15px;
+            }
+
+            .countdown-item {
+                min-width: 80px;
+                padding: 15px;
+            }
+
+            .countdown-number {
+                font-size: 28px;
+            }
+
+            .rsvp-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .rsvp-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .dates-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">the ask harley if she's free portal</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+
+            <!-- Countdown Timer -->
+            <section class="countdown-section">
+                <h2 class="countdown-title">⏰ time til stargazing 🌟</h2>
+                <div class="countdown-timer">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="days">0</span>
+                        <span class="countdown-label">Days</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="hours">0</span>
+                        <span class="countdown-label">Hours</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="minutes">0</span>
+                        <span class="countdown-label">Minutes</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="seconds">0</span>
+                        <span class="countdown-label">Seconds</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Previous Dates -->
+            <section class="previous-dates">
+                <h2 class="section-title">💕 times harley was free 🍽️✨</h2>
+                <div class="dates-grid">
+                    <div class="date-card commis">
+                        <h3 class="date-title">🍝 Commis in Collingwood 🏙️</h3>
+                        <p class="date-time">~8 weeks ago ⏰</p>
+                        <p class="date-summary">"Good vibes, bad risotto" 😅</p>
+                        
+                        <div class="feedback-section">
+                            <div class="feedback-title">💭 How was this date?</div>
+                            <div class="rating-system">
+                                <span class="rating-face" data-rating="1" onclick="setRating(this, 'commis')">😢</span>
+                                <span class="rating-face" data-rating="2" onclick="setRating(this, 'commis')">😕</span>
+                                <span class="rating-face" data-rating="3" onclick="setRating(this, 'commis')">😐</span>
+                                <span class="rating-face" data-rating="4" onclick="setRating(this, 'commis')">😊</span>
+                                <span class="rating-face" data-rating="5" onclick="setRating(this, 'commis')">😍</span>
+                            </div>
+                            <textarea class="feedback-text" placeholder="Share your thoughts about this date... ✨" id="commis-feedback"></textarea>
+                            <button class="feedback-submit" onclick="submitFeedback('commis')">📤 Submit Feedback</button>
+                            <div class="feedback-submitted" id="commis-submitted" style="display: none;">
+                                ✅ Feedback submitted! Thanks for sharing 💕
+                            </div>
+                        </div>
+                    </div>
+                    <div class="date-card sleepys">
+                        <h3 class="date-title">🍷 Sleepy's Cafe & Wine Bar 🥂</h3>
+                        <p class="date-time">~3 weeks ago ⏰</p>
+                        <p class="date-summary">"Stressful seating arrangements but redeeming kuneffe" 😋</p>
+                        
+                        <div class="feedback-section">
+                            <div class="feedback-title">💭 How was this date?</div>
+                            <div class="rating-system">
+                                <span class="rating-face" data-rating="1" onclick="setRating(this, 'sleepys')">😢</span>
+                                <span class="rating-face" data-rating="2" onclick="setRating(this, 'sleepys')">😕</span>
+                                <span class="rating-face" data-rating="3" onclick="setRating(this, 'sleepys')">😐</span>
+                                <span class="rating-face" data-rating="4" onclick="setRating(this, 'sleepys')">😊</span>
+                                <span class="rating-face" data-rating="5" onclick="setRating(this, 'sleepys')">😍</span>
+                            </div>
+                            <textarea class="feedback-text" placeholder="Share your thoughts about this date... ✨" id="sleepys-feedback"></textarea>
+                            <button class="feedback-submit" onclick="submitFeedback('sleepys')">📤 Submit Feedback</button>
+                            <div class="feedback-submitted" id="sleepys-submitted" style="display: none;">
+                                ✅ Feedback submitted! Thanks for sharing 💕
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Next Proposed Date -->
+            <section class="next-date">
+                <h2 class="next-date-title">🌟 Is harley free? 💫</h2>
+                <div class="next-date-details">
+                    <h3 class="next-date-activity">🔭 Stargazing with Mornington Peninsula Astronomical Society 🌌</h3>
+                    <p class="next-date-time">📅 Friday, 3rd October at 8:00 PM 🌙</p>
+                    <p class="next-date-description">
+                        This is an incredibly exclusive and popular event that has sold out for the rest of the year! 🎫
+                        With very limited seating numbers, this stargazing experience is truly special. ✨
+                        The event comes with a private chauffeur service to make the evening even more magical. 🚗💫
+                    </p>
+                    <div>
+                        <span class="exclusive-badge">✨ Exclusive Event</span>
+                        <span class="exclusive-badge">🚗 Private Chauffeur</span>
+                        <span class="exclusive-badge">⭐ Sold Out</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RSVP Section -->
+            <section class="rsvp-section">
+                <h2 class="rsvp-title">💌 RSVP 💕</h2>
+                <div class="rsvp-buttons">
+                    <button class="rsvp-btn rsvp-accept" onclick="acceptDate()">Yes, I'd Love To! 💕✨</button>
+                    <button class="rsvp-btn rsvp-decline" onclick="showCounterProposal()">Counter Proposal 💭🤔</button>
+                    <button class="rsvp-btn rsvp-disabled" disabled>Yo leave me alone 🤡</button>
+                </div>
+
+                <!-- Counter Proposal Form -->
+                <div class="counter-proposal" id="counterProposal">
+                    <h3 style="color: #ff6b6b; margin-bottom: 20px;">💭 Suggest an Alternative 💡</h3>
+                    <form id="counterProposalForm">
+                        <div class="form-group">
+                            <label class="form-label">📅 Preferred Date</label>
+                            <input type="date" class="form-input" id="preferredDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">⏰ Preferred Time</label>
+                            <input type="time" class="form-input" id="preferredTime" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">💡 Alternative Date Ideas or Comments</label>
+                            <textarea class="form-input form-textarea" id="alternativeIdeas" placeholder="Share any alternative date ideas or additional comments... ✨"></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">📤 Send Counter Proposal</button>
+                    </form>
+                </div>
+
+                <!-- Success Message -->
+                <div class="success-message" id="successMessage">
+                    <h3>✅ Response Sent! 🎉</h3>
+                    <p>Vinnie has been notified of your response. You'll hear back soon! 💌✨</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Countdown Timer
+        function updateCountdown() {
+            // Set target date to October 3rd, 2025 at 8:00 PM
+            const targetDate = new Date('2025-10-03T20:00:00').getTime();
+            const now = new Date().getTime();
+            const timeLeft = targetDate - now;
+
+            if (timeLeft > 0) {
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                // Update the countdown display
+                const daysEl = document.getElementById('days');
+                const hoursEl = document.getElementById('hours');
+                const minutesEl = document.getElementById('minutes');
+                const secondsEl = document.getElementById('seconds');
+
+                if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
+                if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+                if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+                if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
+            } else {
+                // Event has passed
+                const daysEl = document.getElementById('days');
+                const hoursEl = document.getElementById('hours');
+                const minutesEl = document.getElementById('minutes');
+                const secondsEl = document.getElementById('seconds');
+
+                if (daysEl) daysEl.textContent = '00';
+                if (hoursEl) hoursEl.textContent = '00';
+                if (minutesEl) minutesEl.textContent = '00';
+                if (secondsEl) secondsEl.textContent = '00';
+            }
+        }
+
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // RSVP Functions
+        function acceptDate() {
+            sendNotification('accepted', 'Harley has accepted the stargazing date proposal!');
+        }
+
+        function showCounterProposal() {
+            document.getElementById('counterProposal').classList.add('show');
+        }
+
+        // Counter Proposal Form
+        document.getElementById('counterProposalForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const preferredDate = document.getElementById('preferredDate').value;
+            const preferredTime = document.getElementById('preferredTime').value;
+            const alternativeIdeas = document.getElementById('alternativeIdeas').value;
+            
+            const message = `Harley has sent a counter proposal:
+            
+Preferred Date: ${preferredDate}
+Preferred Time: ${preferredTime}
+Alternative Ideas: ${alternativeIdeas || 'None provided'}`;
+            
+            sendNotification('counter_proposal', message);
+        });
+
+        // Notification System
+        async function sendNotification(type, message) {
+            try {
+                // Send to Netlify function
+                const response = await fetch('/.netlify/functions/send-notification', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        type: type,
+                        message: message,
+                        timestamp: new Date().toISOString()
+                    })
+                });
+
+                if (response.ok) {
+                    console.log('Notification sent successfully');
+                } else {
+                    console.error('Failed to send notification');
+                }
+            } catch (error) {
+                console.error('Error sending notification:', error);
+            }
+            
+            // Show success message
+            document.getElementById('successMessage').classList.add('show');
+            
+            // Hide counter proposal form if it was shown
+            document.getElementById('counterProposal').classList.remove('show');
+            
+            // Reset form
+            document.getElementById('counterProposalForm').reset();
+            
+            // Scroll to success message
+            document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Set minimum date to today for counter proposal
+        document.getElementById('preferredDate').min = new Date().toISOString().split('T')[0];
+
+        // Feedback System
+        function setRating(face, dateId) {
+            // Remove selected class from all faces in this date's rating system
+            const ratingSystem = face.parentElement;
+            const allFaces = ratingSystem.querySelectorAll('.rating-face');
+            allFaces.forEach(f => f.classList.remove('selected'));
+            
+            // Add selected class to clicked face
+            face.classList.add('selected');
+            
+            // Store the rating
+            window[dateId + 'Rating'] = face.dataset.rating;
+        }
+
+        async function submitFeedback(dateId) {
+            const rating = window[dateId + 'Rating'];
+            const feedbackText = document.getElementById(dateId + '-feedback').value;
+            
+            if (!rating) {
+                alert('Please select a rating first! 😊');
+                return;
+            }
+            
+            try {
+                // Send feedback to Netlify function
+                const response = await fetch('/.netlify/functions/send-feedback', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        dateId: dateId,
+                        rating: rating,
+                        feedback: feedbackText,
+                        timestamp: new Date().toISOString()
+                    })
+                });
+
+                if (response.ok) {
+                    console.log('Feedback sent successfully');
+                } else {
+                    console.error('Failed to send feedback');
+                }
+            } catch (error) {
+                console.error('Error sending feedback:', error);
+            }
+            
+            // Show success message
+            document.getElementById(dateId + '-submitted').style.display = 'block';
+            
+            // Hide the feedback form
+            const feedbackSection = document.getElementById(dateId + '-feedback').closest('.feedback-section');
+            feedbackSection.style.opacity = '0.6';
+        }
+    </script>
+</body>
+</html>
