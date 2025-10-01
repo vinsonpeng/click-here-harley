@@ -793,11 +793,7 @@
             const preferredTime = document.getElementById('preferredTime').value;
             const alternativeIdeas = document.getElementById('alternativeIdeas').value;
             
-            const message = `Harley has sent a counter proposal:
-            
-Preferred Date: ${preferredDate}
-Preferred Time: ${preferredTime}
-Alternative Ideas: ${alternativeIdeas || 'None provided'}`;
+            const message = `🌟 Counter Proposal from Harley! 📅\n\nDate: ${preferredDate}\nTime: ${preferredTime}\n\nIdeas: ${alternativeIdeas || 'No additional ideas'}`;
             
             sendNotification('counter_proposal', message);
         });
