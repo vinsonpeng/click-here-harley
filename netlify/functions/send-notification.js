@@ -14,8 +14,8 @@ exports.handler = async (event, context) => {
 
     // Initialize Twilio client
     const client = twilio(
-      process.env.TWILIO_ACCOUNT_SID,
-      process.env.TWILIO_AUTH_TOKEN
+      process.env.TWILIO_ACCOUNT_SID || 'YOUR_ACCOUNT_SID_HERE',
+      process.env.TWILIO_AUTH_TOKEN || 'YOUR_AUTH_TOKEN_HERE'
     );
 
     // Send SMS
@@ -23,20 +23,12 @@ exports.handler = async (event, context) => {
     
     await client.messages.create({
       body: smsMessage,
-      from: process.env.TWILIO_PHONE_NUMBER,
-      to: process.env.RECIPIENT_PHONE
+      from: process.env.TWILIO_PHONE_NUMBER || 'YOUR_TWILIO_PHONE_NUMBER_HERE',
+      to: process.env.RECIPIENT_PHONE || '+61488202027'
     });
 
-    // Send email using Netlify's built-in email
-    const emailData = {
-      to: process.env.RECIPIENT_EMAIL,
-      from: 'noreply@your-site.netlify.app',
-      subject: `🌟 Harley's Response: ${type.toUpperCase()}`,
-      text: message + `\n\nTime: ${new Date(timestamp).toLocaleString()}`
-    };
-
-    // For now, we'll just log the email (Netlify doesn't have built-in email)
-    console.log('Email would be sent:', emailData);
+    // SMS notification sent successfully
+    console.log('SMS notification sent successfully');
 
     return {
       statusCode: 200,
