@@ -14,8 +14,8 @@ exports.handler = async (event, context) => {
 
     // Initialize Twilio client
     const client = twilio(
-      process.env.TWILIO_ACCOUNT_SID,
-      process.env.TWILIO_AUTH_TOKEN
+      process.env.TWILIO_ACCOUNT_SID || 'YOUR_ACCOUNT_SID_HERE',
+      process.env.TWILIO_AUTH_TOKEN || 'YOUR_AUTH_TOKEN_HERE'
     );
 
     // Create rating emoji
@@ -35,19 +35,12 @@ exports.handler = async (event, context) => {
     
     await client.messages.create({
       body: smsMessage,
-      from: process.env.TWILIO_PHONE_NUMBER,
-      to: process.env.RECIPIENT_PHONE
+      from: process.env.TWILIO_PHONE_NUMBER || 'YOUR_TWILIO_PHONE_NUMBER_HERE',
+      to: process.env.RECIPIENT_PHONE || '+61488202027'
     });
 
-    // Log email data (would be sent via email service)
-    const emailData = {
-      to: process.env.RECIPIENT_EMAIL,
-      from: 'noreply@your-site.netlify.app',
-      subject: `💭 Harley's Feedback: ${dateName}`,
-      text: `Rating: ${ratingEmoji} (${rating}/5)\n\nComments: ${feedback || 'No additional comments'}\n\nTime: ${new Date(timestamp).toLocaleString()}`
-    };
-
-    console.log('Email would be sent:', emailData);
+    // SMS feedback sent successfully
+    console.log('SMS feedback sent successfully');
 
     return {
       statusCode: 200,
