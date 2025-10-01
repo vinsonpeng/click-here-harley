@@ -1,0 +1,16 @@
+{
+  "name": "harley-dating-portal",
+  "version": "1.0.0",
+  "description": "A personalized dating portal for Harley and Vinnie",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'No build step required'",
+    "dev": "echo 'No dev server required'"
+  },
+  "dependencies": {
+    "twilio": "^4.19.0"
+  },
+  "keywords": ["dating", "portal", "netlify", "twilio"],
+  "author": "Vinnie",
+  "license": "MIT"
+}

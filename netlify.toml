@@ -1,0 +1,9 @@
+[build]
+  functions = "netlify/functions"
+
+[build.environment]
+  TWILIO_ACCOUNT_SID = "your_account_sid_here"
+  TWILIO_AUTH_TOKEN = "your_auth_token_here"
+  TWILIO_PHONE_NUMBER = "your_twilio_phone_number_here"
+  RECIPIENT_EMAIL = "vinson2004peng@hotmail.com"
+  RECIPIENT_PHONE = "+61488202027"
