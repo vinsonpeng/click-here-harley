@@ -29,7 +29,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://iso.500px.com/wp-content/uploads/2013/08/11834033-1170.jpeg') center/cover;
+            background: url('https://images.unsplash.com/photo-1641895958846-19dab3471449?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3RhcnJ5JTIwbmlnaHQlMjBza3l8ZW58MHx8MHx8fDA%3D') center/cover;
             opacity: 0.4;
             z-index: -1;
             animation: twinkle 4s ease-in-out infinite alternate;
@@ -329,6 +329,20 @@
             margin-bottom: 40px;
             border: 2px solid rgba(255, 107, 107, 0.3);
             backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .next-date::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://res.cloudinary.com/diversity-group/image/upload/c_fill,g_center,h_600,q_auto,w_900/dpr_2.0,f_auto/v1635389916/vm-admin/edra/listing-images/listing_image_mtburnett-1_gfvxk0.jpg?_a=BACAGSGT') center/cover;
+            opacity: 0.15;
+            z-index: -1;
         }
 
         .next-date-title {
@@ -669,6 +683,11 @@
                         With very limited seating numbers, this stargazing experience is truly special. ✨
                         The event comes with a private chauffeur service to make the evening even more magical. 🚗💫
                     </p>
+                    <p style="margin-top: 20px;">
+                        <a href="https://www.mpas.asn.au/stargazing-nights/" target="_blank" style="color: #4ecdc4; text-decoration: none; font-weight: 600; border: 1px solid #4ecdc4; padding: 10px 20px; border-radius: 25px; display: inline-block; transition: all 0.3s ease;">
+                            🔗 Learn More About This Event
+                        </a>
+                    </p>
                     <div>
                         <span class="exclusive-badge">✨ Exclusive Event</span>
                         <span class="exclusive-badge">🚗 Private Chauffeur</span>
@@ -679,7 +698,7 @@
 
             <!-- RSVP Section -->
             <section class="rsvp-section">
-                <h2 class="rsvp-title">💌 RSVP 💕</h2>
+                <h2 class="rsvp-title">RSVP</h2>
                 <div class="rsvp-buttons">
                     <button class="rsvp-btn rsvp-accept" onclick="acceptDate()">Yes, I'd Love To! 💕✨</button>
                     <button class="rsvp-btn rsvp-decline" onclick="showCounterProposal()">Counter Proposal 💭🤔</button>
@@ -709,7 +728,7 @@
                 <!-- Success Message -->
                 <div class="success-message" id="successMessage">
                     <h3>✅ Response Sent! 🎉</h3>
-                    <p>Vinnie has been notified of your response. You'll hear back soon! 💌✨</p>
+                    <p>Vinnie has been notified of your response. 💬📲 You'll hear back soon! 💌✨</p>
                 </div>
             </section>
         </div>
